@@ -114,6 +114,9 @@ public class MCTS {
     }
 
     public MCTS bestChild() {
+        if(this.childCreated.size() == 0) {
+            return null;
+        }
        double maxFormula = -500;
        int maxIndex =0;
        for (int i =0; i< this.childCreated.size(); i++) {
@@ -126,6 +129,7 @@ public class MCTS {
                maxIndex = i;
            }
        }
+        
        return this.getChildCreated().get(maxIndex);
        
     }
@@ -134,14 +138,15 @@ public class MCTS {
         
         GameModel model = this.board;
         while ( ! model.isGameOver() && !model.calculatePossibilities().isEmpty() ) {
-            List<Cell> cells = model.calculatePossibilities();
+            List<Cell> cells = new ArrayList<>();
+            cells = model.calculatePossibilities();
             int randomNumber = Randomise.getRandomNumber(0, cells.size()-1);
             Cell cell = cells.get(randomNumber);
-            model.simulateMove(cell);
+            model = model.simulateMove(cell);
         }
         int result =0;
         if (model.isGameOver()){
-            if (player == model.isIsPlayer1Turn()) {
+            if (player != model.isIsPlayer1Turn()) {
                 result = 1;
             }else {
                 result =-1;

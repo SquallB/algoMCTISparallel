@@ -114,7 +114,9 @@ public class Grid {
             ArrayList<Cell> newRow = new ArrayList<>();
             
             for(int j = 0; j < nbCols; j++) {
-                newRow.add(j, createCell(_grid.getCell(i, j)));
+                Cell cell = createCell(_grid.getCell(i, j));
+                cell.setState(_grid.getCell(i, j).getState());
+                newRow.add(j, cell);
             }
         
             grid.add(i, newRow);

@@ -100,6 +100,11 @@ public class GameModel extends AbstractModel {
         refreshViews(new CellStateEvent(this, getGrid().getCell(i, j), state));
     }
     
+    public void changeCellState(Cell cell, State state) {        
+        cell.setState(state);
+        refreshViews(new CellStateEvent(this, cell, state));
+    }
+    
     public List<Cell> calculatePossibilities() {
         List<Cell> possibilities = new ArrayList<>();
         
