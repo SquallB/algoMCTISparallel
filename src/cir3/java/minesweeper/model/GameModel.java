@@ -118,13 +118,21 @@ public class GameModel extends AbstractModel {
         return possibilities;
     }
     
-    public GameModel simulateMove(int i, int j, PlayerState state) {
-        return simulateMove(grid.getCell(i, j), state);
+    public GameModel simulateMove(int i, int j) {
+        return simulateMove(grid.getCell(i, j));
     }
     
-    public GameModel simulateMove(Cell cell, PlayerState state) {
+    public GameModel simulateMove(Cell cell) {
         GameModel model = new GameModel(this);
+        PlayerState state;
+        if(this.isPlayer1Turn) {
+            state = PlayerState.PLAYER1;
+        }
+        else {
+            state = PlayerState.PLAYER2;
+        }
         model.grid.changeCellState(cell.getI(), cell.getJ(), state);
+        model.isPlayer1Turn = !isPlayer1Turn;
         return model;
     }
 
