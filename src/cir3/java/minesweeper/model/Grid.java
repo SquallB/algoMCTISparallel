@@ -70,6 +70,10 @@ public class Grid {
         return new Cell(i, j);
     }
     
+    public Cell createCell(Cell cell) {
+        return new Cell(cell.getI(), cell.getJ());
+    }
+    
     /**
      * Checks if the row and the col given are valid for the cell to be in the
      * grid.
@@ -99,6 +103,22 @@ public class Grid {
     
     public void changeCellState(int i, int j, State state) {
         this.getCell(i, j).setState(state);
+    }
+    
+    public Grid(Grid _grid) {
+        setNbRows(_grid.nbRows);
+        setNbCols(_grid.nbCols);
+        
+        grid = new ArrayList<>();
+        for(int i = 0; i < nbRows; i++) {
+            ArrayList<Cell> newRow = new ArrayList<>();
+            
+            for(int j = 0; j < nbCols; j++) {
+                newRow.add(j, createCell(_grid.getCell(i, j)));
+            }
+        
+            grid.add(i, newRow);
+        }
     }
     
     /**

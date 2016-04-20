@@ -99,6 +99,34 @@ public class GameModel extends AbstractModel {
         grid.changeCellState(i, j, state);
         refreshViews(new CellStateEvent(this, getGrid().getCell(i, j), state));
     }
+    
+    public List<Cell> calculatePossibilities() {
+        List<Cell> possibilities = new ArrayList<>();
+        
+        for(int i = 0; i < grid.getNbRows(); i++) {
+            for(int j = 0; j < grid.getNbCols(); j++) {
+                Cell cell = grid.getCell(i, j);
+                if(cell.getState() instanceof PlayerState) {
+                    PlayerState state = (PlayerState)cell.getState();
+                    if(state == PlayerState.NONE) {
+                        possibilities.add(cell);
+                    }
+                }
+            }
+        }
+        
+        return possibilities;
+    }
+    
+    public GameModel simulateMove(int i, int j, PlayerState state) {
+        return simulateMove(grid.getCell(i, j), state);
+    }
+    
+    public GameModel simulateMove(Cell cell, PlayerState state) {
+        GameModel model = new GameModel(this);
+        model.grid.changeCellState(cell.getI(), cell.getJ(), state);
+        return model;
+    }
 
     public GameModel(Grid grid) {
          this.grid = grid;
@@ -108,5 +136,10 @@ public class GameModel extends AbstractModel {
     public GameModel(int nbRows, int nbCols) {
         this.grid = new Grid(nbRows, nbCols);
         this.isPlayer1Turn = true;
+    }
+    
+    public GameModel(GameModel model) {
+        this.isPlayer1Turn = model.isPlayer1Turn;
+        this.grid = new Grid(model.grid);
     }
 }

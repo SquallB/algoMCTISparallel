@@ -77,7 +77,7 @@ public class GraphicalMenuBar extends JMenuBar{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                createNewGame(9, 9);
+                createNewGame(3, 3);
             }
         });
         
