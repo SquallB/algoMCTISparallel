@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/GraphicalMenuBar.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/event/GameOverEvent.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/GraphicalGridView.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/event/CellEvent.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/Cell.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/GraphicalViewConstants.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/GraphicalView.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/controller/TicTacToeController.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/State.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/NewGamePanel.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/GameModel.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/Grid.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/GameState.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/GraphicalCellView.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/event/CellStateEvent.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/view/Main.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/AlgoTP4/src/cir3/java/minesweeper/model/PlayerState.java</file>
+        </group>
+    </open-files>
+</project-private>
