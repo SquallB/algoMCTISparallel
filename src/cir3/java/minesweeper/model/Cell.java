@@ -93,4 +93,11 @@ public class Cell {
     public Cell() {
         this(-1, -1);
     }
+
+    
+    public boolean equals(Cell cell) {
+        return cell.i == this.i && cell.j == this.j;
+    }
+    
+    
 }

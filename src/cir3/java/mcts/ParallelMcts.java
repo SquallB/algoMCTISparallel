@@ -5,6 +5,8 @@
  */
 package cir3.java.mcts;
 
+import cir3.java.minesweeper.model.GameModel;
+
 
 
 /**
@@ -20,14 +22,15 @@ public class ParallelMcts {
         
     }
     
-    public MCTS mctsSearch (MCTS tree) {
+    public MCTS mctsSearch (GameModel board, MCTS tree) {
         if (tree == null) {
             tree = new MCTS();
-            //TODO tree.childNotYetCreate = board.possibilities
+            tree.setChildNotCreated(board.calculatePossibilities());
+            
         }
-        //TODO tree.board = board
-        boolean player = true;
-        //TODO player = board.player
+        tree.setBoard(board);
+        boolean player = board.isIsPlayer1Turn();
+        
         
         long start = System.currentTimeMillis();
         long end = start + 500;
@@ -36,7 +39,7 @@ public class ParallelMcts {
             int scoreChild = child.defaultPolicy(player);
             child.backUpResult(scoreChild, player);
         }
-        tree = tree.selectChildFromMove(tree.bestChild().getMove());
+        tree = tree.selectChildFromMove(tree.bestChild().getCell());
         return tree;
     }
     

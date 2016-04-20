@@ -5,8 +5,10 @@
  */
 package cir3.java.mcts;
 
+import cir3.java.minesweeper.model.Cell;
 import cir3.java.minesweeper.model.GameModel;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,11 +20,21 @@ public class MCTS {
     private int score;
     private MCTS parent;
     private ArrayList<MCTS> childCreated = new ArrayList<>();
-    private ArrayList<Move> childNotCreated = new ArrayList<>();
-    private Move move;
+    private List<Cell> childNotCreated = new ArrayList<>();
+    private Cell move;
     private boolean isTerminal = false;
     private GameModel board;
 
+    public GameModel getBoard() {
+        return board;
+    }
+
+    public void setBoard(GameModel board) {
+        this.board = board;
+    }
+
+    
+    
     public int getNumberRun() {
         return numberRun;
     }
@@ -55,19 +67,19 @@ public class MCTS {
         this.childCreated = childCreated;
     }
 
-    public ArrayList<Move> getChildNotCreated() {
+    public List<Cell> getChildNotCreated() {
         return childNotCreated;
     }
 
-    public void setChildNotCreated(ArrayList<Move> childNotCreated) {
+    public void setChildNotCreated(List<Cell> childNotCreated) {
         this.childNotCreated = childNotCreated;
     }
 
-    public Move getMove() {
+    public Cell getCell() {
         return move;
     }
 
-    public void setMove(Move move) {
+    public void setCell(Cell move) {
         this.move = move;
     }
 
@@ -120,7 +132,22 @@ public class MCTS {
     
     public int defaultPolicy (boolean player) {
         
-        throw new UnsupportedOperationException();
+        GameModel model = this.board;
+        while ( ! model.isGameOver() && !model.calculatePossibilities().isEmpty() ) {
+            List<Cell> cells = model.calculatePossibilities();
+            int randomNumber = Randomise.getRandomNumber(0, cells.size()-1);
+            Cell cell = cells.get(randomNumber);
+            model.simulateMove(cell);
+        }
+        int result =0;
+        if (model.isGameOver()){
+            if (player == model.isIsPlayer1Turn()) {
+                result = 1;
+            }else {
+                result =-1;
+            }
+        }
+        return result;
     }
 
     public void backUpResult(int result, boolean player) {
@@ -139,30 +166,29 @@ public class MCTS {
         }
         
     }
-    private MCTS createChild(Move move) {
+    private MCTS createChild(Cell move) {
         MCTS newChild = new MCTS();
         newChild.setParent(this);
         
         
-        
-        //TODO : newChild.board
-        //TODO : newChild.childNotYetCreate = newChild.board.possibilities
-        /*
-        if not newChild.board.won() == None or newChild.board.tied():
-            newChild.isTerminal = True
-        */
-        newChild.setMove(move);
+        newChild.board = this.board.simulateMove(move);
+        newChild.setChildNotCreated(newChild.board.calculatePossibilities());
+        if (newChild.board.isGameOver() || newChild.childNotCreated.isEmpty()) {
+            newChild.isTerminal = true;
+        }
+       
+        newChild.setCell(move);
         return newChild;
     }
     
-    public MCTS selectChildFromMove (Move move) {
+    public MCTS selectChildFromMove (Cell move) {
         
         if (this == null) {
             return null;
         }
         for (int i=0; i< this.getChildCreated().size(); i++) {
             
-            if (this.getChildCreated().get(i).getMove().equals(move)) {
+            if (this.getChildCreated().get(i).getCell().equals(move)) {
                 return this.getChildCreated().get(i);
             }
         }
