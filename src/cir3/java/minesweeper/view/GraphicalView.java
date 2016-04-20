@@ -7,7 +7,6 @@ import cir3.java.minesweeper.model.GameModel;
 import cir3.java.mvc.View;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  * Represents the graphical view of a mine sweeper game.

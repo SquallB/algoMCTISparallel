@@ -26,7 +26,7 @@ public class ParallelMcts {
             //TODO tree.childNotYetCreate = board.possibilities
         }
         //TODO tree.board = board
-        String player = "";
+        boolean player = true;
         //TODO player = board.player
         
         long start = System.currentTimeMillis();

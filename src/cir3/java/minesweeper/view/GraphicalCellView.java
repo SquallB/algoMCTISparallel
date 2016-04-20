@@ -4,9 +4,7 @@ package cir3.java.minesweeper.view;
 import cir3.java.minesweeper.controller.TicTacToeController;
 import cir3.java.minesweeper.model.Cell;
 import cir3.java.minesweeper.model.GameModel;
-import cir3.java.minesweeper.model.GameState;
 import cir3.java.minesweeper.model.PlayerState;
-import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 

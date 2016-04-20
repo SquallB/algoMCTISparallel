@@ -5,6 +5,7 @@
  */
 package cir3.java.mcts;
 
+import cir3.java.minesweeper.model.GameModel;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class MCTS {
     private ArrayList<Move> childNotCreated = new ArrayList<>();
     private Move move;
     private boolean isTerminal = false;
+    private GameModel board;
 
     public int getNumberRun() {
         return numberRun;
@@ -116,26 +118,23 @@ public class MCTS {
        
     }
     
-    public int defaultPolicy (String player) {
+    public int defaultPolicy (boolean player) {
         
         throw new UnsupportedOperationException();
     }
 
-    public void backUpResult(int result, String player) {
+    public void backUpResult(int result, boolean player) {
         MCTS node = this;
         
         while (node != null) {
             node.setNumberRun(node.getNumberRun() +1);
+         
             
-            //TODO 
-            
-            /*
-            if node.board.player == player :
-                node.numberWin += result
-            elif not node.board.player == player:
-                node.numberWin -= result
-            */
-            
+            if (node.board.isIsPlayer1Turn() == player ){
+                node.setScore(node.getScore()+result);
+            }else {
+                node.setScore(node.getScore() -result);
+            }     
             node = node.getParent();
         }
         
@@ -143,6 +142,8 @@ public class MCTS {
     private MCTS createChild(Move move) {
         MCTS newChild = new MCTS();
         newChild.setParent(this);
+        
+        
         
         //TODO : newChild.board
         //TODO : newChild.childNotYetCreate = newChild.board.possibilities
