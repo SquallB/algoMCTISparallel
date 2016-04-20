@@ -1,15 +1,12 @@
 package cir3.java.minesweeper.view;
 
 import cir3.java.minesweeper.model.GameModel;
-import cir3.java.minesweeper.model.Difficulty;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 /**
  * Panels that allows to choose a difficulty and start a new game.
