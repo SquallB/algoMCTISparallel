@@ -12,7 +12,11 @@ import cir3.java.minesweeper.model.PlayerState;
 import cir3.java.mvc.Controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  *
@@ -31,7 +35,26 @@ public class TicTacToeController implements Controller, MouseListener {
     public void control() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+        
+    public void mctsParallel(GameModel board){
+        int nbProcess = 16;
+        ForkJoinPool pool = new ForkJoinPool(nbProcess);
+        
+        long startTime = System.currentTimeMillis();
+        pool.submit(() ->{
+            
+            /*anonymous callback executed by all nbProcess threads*/
+            /* Parallelism need to be inserted here*/
+            
+            
+            
+            mctsSearch(board);});
+        long endTime = System.currentTimeMillis();
+ 
+        System.out.println("Computing took " + (endTime - startTime) + 
+                " milliseconds for "+nbProcess+" process.");
+    }
+    
     public void mctsSearch (GameModel board) {
         
         MCTS tree = TicTacToeController.tree;
