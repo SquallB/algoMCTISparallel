@@ -33,6 +33,6 @@ public class NewGameFrame extends JFrame {
      * 
      */
     public NewGameFrame() {
-        this(GraphicalViewConstants.DEFAULT_FRAME_WIDTH, GraphicalViewConstants.DEFAULT_FRAME_HEIGHT);
+        this(GraphicalViewConstants.DEFAULT_NEW_FRAME_WIDTH, GraphicalViewConstants.DEFAULT_NEW_FRAME_HEIGHT);
     }    
 }
