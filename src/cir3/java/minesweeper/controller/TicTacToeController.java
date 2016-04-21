@@ -20,24 +20,31 @@ import java.awt.event.MouseListener;
 public class TicTacToeController implements Controller, MouseListener {
     private GameModel model;
     private Cell cell;
-    MCTS tree;
+    public static MCTS tree = null;
 
     public TicTacToeController(GameModel model, Cell cell) {
         this.model = model;
         this.cell = cell;
-        this.tree = null;
     }
     @Override
     public void control() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public MCTS mctsSearch (GameModel board, MCTS tree) {
-        if (tree == null) {
+    public void mctsSearch (GameModel board) {
+        
+        MCTS tree = TicTacToeController.tree;
+        
+        if (tree == null || tree != null) {
             tree = new MCTS();
             tree.setChildNotCreated(board.calculatePossibilities());
             
+            
         }
+        System.out.println("CE que l'on a ");
+        System.out.println(tree.getChildCreated().size() + tree.getChildNotCreated().size());
+        System.out.println("ce qu'on devrait");
+        System.out.println(board.calculatePossibilities().size());
         tree.setBoard(board);
         boolean player = board.isIsPlayer1Turn();
         
@@ -46,14 +53,21 @@ public class TicTacToeController implements Controller, MouseListener {
         long end = start + 500;
         int i = 0;
         while (System.currentTimeMillis() < end) {
+            /*
+            if (i>100) {
+                System.out.println("");
+            }*/
+          
+            
             MCTS child = tree.treePolicy();
             int scoreChild = child.defaultPolicy(player);
-            child.backUpResult(scoreChild, player);
+            tree = child.backUpResult(scoreChild, player);
             i++;
         }
-        System.out.println(i);
-        tree = tree.selectChildFromMove(tree.bestChild().getCell());
-        return tree;
+        
+        TicTacToeController.tree = tree.bestChild();
+        
+        
     }
     
     /**
@@ -83,16 +97,21 @@ public class TicTacToeController implements Controller, MouseListener {
                         model.setIsPlayer1Turn(!model.isIsPlayer1Turn());
                         if(model.calculatePossibilities().size() > 0) {
                             if(tree != null) {
-                                this.tree = this.tree.selectChildFromMove(cell);
+                                
+                                TicTacToeController.tree = TicTacToeController.tree.selectChildFromMove(cell);
+                                
+                                
                             } 
                             
-                            tree = this.mctsSearch(model, tree);
+                            this.mctsSearch(model);
+                          
                             if(model.isIsPlayer1Turn()) {
                                 newState = PlayerState.PLAYER1;
                             }
                             else {
                                 newState = PlayerState.PLAYER2;
                             }
+                                System.out.println(tree.getCell().getI() + "    " + tree.getCell().getJ());
                             model.changeCellState(tree.getCell(), newState);
                             if(model.isGameOver()) {
                                 System.out.println("game over");

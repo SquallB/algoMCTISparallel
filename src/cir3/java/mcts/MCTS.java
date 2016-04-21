@@ -28,7 +28,7 @@ public class MCTS {
     public GameModel getBoard() {
         return board;
     }
-
+    
     public void setBoard(GameModel board) {
         this.board = board;
     }
@@ -106,9 +106,9 @@ public class MCTS {
 
     private MCTS expand() {
         int randomNumber = Randomise.getRandomNumber(0, this.childNotCreated.size() -1);
-        MCTS child = this.createChild(this.childNotCreated.get(randomNumber));
+        MCTS child = this.createChild(this.childNotCreated.remove(randomNumber));
         this.childCreated.add(child);
-        this.childNotCreated.remove(randomNumber);
+        
         return child;
         
     }
@@ -117,12 +117,14 @@ public class MCTS {
         if(this.childCreated.size() == 0) {
             return null;
         }
-       double maxFormula = -500;
+       double maxFormula = Double.MIN_VALUE;
        int maxIndex =0;
+       
        for (int i =0; i< this.childCreated.size(); i++) {
+           
            MCTS currentChild = this.getChildCreated().get(i);
-           double formula = currentChild.getScore() / currentChild.getNumberRun();
-           formula *= 1/Math.sqrt(7) * Math.sqrt(Math.log(this.getNumberRun()) / 10 * currentChild.getNumberRun());
+           double formula = (currentChild.getScore() / currentChild.getNumberRun()) + (1/Math.sqrt(6)) * Math.sqrt( Math.log(this.getNumberRun()) /  currentChild.getNumberRun());
+           
            
            if (formula > maxFormula) {
                maxFormula = formula;
@@ -155,10 +157,10 @@ public class MCTS {
         return result;
     }
 
-    public void backUpResult(int result, boolean player) {
+    public MCTS backUpResult(int result, boolean player) {
         MCTS node = this;
-        
-        while (node != null) {
+        boolean stop = false;
+        while (!stop) {
             node.setNumberRun(node.getNumberRun() +1);
          
             
@@ -166,10 +168,15 @@ public class MCTS {
                 node.setScore(node.getScore()+result);
             }else {
                 node.setScore(node.getScore() -result);
-            }     
-            node = node.getParent();
+            }  
+            if (node.getParent() == null) {
+                stop = true;
+            }else {
+                node = node.getParent();
+            }
+            
         }
-        
+        return node;
     }
     private MCTS createChild(Cell move) {
         MCTS newChild = new MCTS();
@@ -188,12 +195,11 @@ public class MCTS {
     
     public MCTS selectChildFromMove (Cell move) {
         
-        if (this == null) {
-            return null;
-        }
+       
         for (int i=0; i< this.getChildCreated().size(); i++) {
             
             if (this.getChildCreated().get(i).getCell().equals(move)) {
+                
                 return this.getChildCreated().get(i);
             }
         }
