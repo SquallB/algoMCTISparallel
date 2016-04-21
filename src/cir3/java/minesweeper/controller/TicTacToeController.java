@@ -12,6 +12,7 @@ import cir3.java.minesweeper.model.PlayerState;
 import cir3.java.mvc.Controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 /**
  *
@@ -78,9 +79,11 @@ public class TicTacToeController implements Controller, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(!model.isGameOver()) {
-            if(cell.getState() instanceof PlayerState) {
+            List<Cell> possibilities = model.calculatePossibilities();
+            
+            if(possibilities.size() > 0 && cell.getState() instanceof PlayerState) {
                 PlayerState state = (PlayerState)cell.getState();
-                if(state == PlayerState.NONE) {
+                if(state == PlayerState.NONE && possibilities.contains(cell)) {
                     PlayerState newState;
                     if(model.isIsPlayer1Turn()) {
                         newState = PlayerState.PLAYER1;

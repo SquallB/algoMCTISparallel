@@ -2,8 +2,10 @@
 package cir3.java.minesweeper.view;
 
 import cir3.java.minesweeper.event.CellEvent;
+import cir3.java.minesweeper.model.Connect4Model;
 import cir3.java.mvc.Event;
 import cir3.java.minesweeper.model.GameModel;
+import cir3.java.minesweeper.model.TicTacToeModel;
 import cir3.java.mvc.View;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -40,7 +42,14 @@ public class GraphicalView extends JFrame implements View {
      * @param height the height of the frame
      */
     public GraphicalView(GameModel m, int width, int height) {
-        super(GraphicalViewConstants.GAME_FRAME_NAME);
+        if(m instanceof TicTacToeModel) {
+            this.setTitle(GraphicalViewConstants.GAME_NAME_TICTACTOE);
+        }
+        else if(m instanceof Connect4Model) {
+            this.setTitle(GraphicalViewConstants.GAME_NAME_CONNECT4);
+        }
+        
+        
         grid = new GraphicalGridView(m);
         //statusBar = new JLabel(GraphicalViewConstants.STATUS_BAR_TEXT + Integer.toString(m.getNbRemainingMines()), SwingConstants.CENTER);
         menu = new GraphicalMenuBar(this);
